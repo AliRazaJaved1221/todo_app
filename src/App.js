@@ -1,24 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './Components/Header';
+import Main from './Components/Main';
+import SideBar from './Components/SideBar';
+// import Nawi from './Components/Nawi';
+import { Provider } from 'react-redux';
+import { store } from './redux/Store/store';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+<Provider store={store}>
+<div><Header/></div>
+<div className='flex mt-6'>
+  <div className="w-1/4"><SideBar/></div>
+  <div className="w-3/4"><Main/></div>
+</div>  
+</Provider>
+
+{/* <Main/> */}
+
+  </>
   );
 }
 

@@ -36,3 +36,58 @@
     transform: rotate(360deg);
   }
 }
+.icons {
+  font-size: 1.5rem;
+  border: 3px solid #f04a4a;
+  color: white;
+  background-color: #f04a4a;
+  border-radius: 5px;
+}
+.icons:hover{
+  background-color: #ed1c1c;
+  border: 3px solid #ed1c1c;
+}
+.input-placeholder::placeholder {
+  color: rgb(175, 173, 173); /* Replace gray with the desired color */
+  opacity: 1; /* Ensure the color is fully visible */
+}
+.bsb {
+  box-shadow:0px 0px 15px gray
+}
+.container {
+  padding-left: 3rem;
+}
+.button1{
+  background-color: #f04a4a;
+  color: white;
+  font-weight: 400;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+.button1:hover{
+  background-color: #ed1c1c;
+}
+.btn1 {
+  background-color: #f04a4a;
+}
+.btn1:hover{
+  background-color: #ed1c1c;
+}
+
+.dlt_icon{
+  color: red;
+  border: none;
+  font-size:larger;
+}
+.dlt_icon2{
+  color: green;
+  border: none;
+  font-size:larger;
+  margin-left: 0.5rem;
+}
+.dlt_icon3{
+  color: blue;
+  border: none;
+  font-size:larger;
+  margin-left: 0.5rem;
+}
