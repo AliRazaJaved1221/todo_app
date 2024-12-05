@@ -49,7 +49,7 @@ export default function Header() {
               <FaCalendarAlt className="icons" />
             </button>
             {showCalendar && (
-              <div className="relative bg-white p-2 rounded shadow-md mt-2">
+              <div className="relative bg-white  w-fit rounded shadow-md mt-72">
                 <Calendar onChange={handleDateChange} value={selectedDate} />
               </div>
             )}

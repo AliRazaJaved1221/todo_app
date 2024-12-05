@@ -9,7 +9,7 @@ export default function Main() {
   const dispatch = useDispatch();
   const list = useSelector((state) => state.tasks.list);
 
-  const initialValues = { id: 0, title: '', date: '', category: '', description: '' };
+  const initialValues = { id: 0, title: '', date: '', category: '', description: '', status: false  };
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState(initialValues);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -17,8 +17,10 @@ export default function Main() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+    const isCheckbox = e.target.type === 'checkbox'; // Check if the input is a checkbox
+    setData((prev) => ({ ...prev, [name]: isCheckbox ? e.target.checked : value, }));
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +31,7 @@ export default function Main() {
     }
     toggleModal();
     resetForm();
+    console.log('DATA', data)
   };
 
   const resetForm = () => {
@@ -61,6 +64,7 @@ export default function Main() {
     }
   }, [list]);
 
+
   return (
     <>
       <div className='container pr-8'>
@@ -83,6 +87,7 @@ export default function Main() {
                   <th className="p-4 text-left text-sm font-medium text-white">Category</th>
                   <th className="p-4 text-left text-sm font-medium text-white">Date</th>
                   <th className="p-4 text-left text-sm font-medium text-white">Description</th>
+                  <th className="p-4 text-left text-sm font-medium text-white">Status</th>
                   <th className="p-4 text-left text-sm font-medium text-white">Actions</th>
                 </tr>
               </thead>
@@ -94,6 +99,7 @@ export default function Main() {
                     <td className="p-4 text-sm text-black">{task.category}</td>
                     <td className="p-4 text-sm text-black">{task.date}</td>
                     <td className="p-4 text-sm text-black">{task.description}</td>
+                    <td className="p-4 text-sm text-black">{task.status ? 'Completed' : 'Incomplete'}</td>
                     <td className="p-4">
                       <button className="dlt_icon mr-3 hover:text-red-400"><FaEye /></button>
                       <button className="dlt_icon2 mr-3 hover:text-red-400" onClick={() => handleEdit(task)}><RxUpdate /></button>
@@ -162,6 +168,13 @@ export default function Main() {
                 <textarea name="description" value={data.description} onChange={handleInputChange} className="w-full p-2 rounded-lg border"
                   placeholder="Write task description here" rows="4"></textarea>
               </div>
+              <label class="relative cursor-pointer">
+                Task Status:
+                <input type="checkbox" className="sr-only peer" id="taskStatusSwitch"    name="status" checked={data.status}
+                onChange={handleInputChange}/>
+                <div class="w-[170px] h-7 flex items-center bg-gray-300 rounded-full text-[9px] peer-checked:text-[#007bff] text-gray-300 font-extrabold after:flex after:items-center after:justify-center peer after:content-['Incomplete'] peer-checked:after:content-['Completed'] peer-checked:after:translate-x-full after:absolute after:left-[2px] peer-checked:after:border-white after:bg-white after:border after:border-gray-300 after:rounded-full after:h-6 after:w-20 after:transition-all peer-checked:bg-[#007bff]">
+                </div>
+              </label>
             </div>
             <button
               type="submit"
