@@ -2,115 +2,127 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteTask, editTask, setTasksFromStorage } from '../redux/slices/taskSlice';
 import { RxUpdate } from "react-icons/rx";
-// import { FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
-export default function Main() {
-  const dispatch = useDispatch();
-  const list = useSelector((state) => state.tasks.list);
-  const initialValues = { id: 0, title: '', date: '', category: '', description: '', status: false  };
-  const [isOpen, setIsOpen] = useState(false);
-  const [data, setData] = useState(initialValues);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const toggleModal = () => setIsOpen(!isOpen);
-  
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    const isCheckbox = e.target.type === 'checkbox';
-    setData((prev) => ({ ...prev, [name]: isCheckbox ? e.target.checked : value, }));
-  };
+export default function Main({ searchQuery }) {
+    const dispatch = useDispatch();
+    const list = useSelector((state) => state.tasks.list);
+    const initialValues = { id: 0, title: '', date: '', category: '', description: '', status: false };
+    const [isOpen, setIsOpen] = useState(false);
+    const [data, setData] = useState(initialValues);
+    const [isEditMode, setIsEditMode] = useState(false);
 
+    const toggleModal = () => setIsOpen(!isOpen);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isEditMode) {
-      dispatch(editTask(data));
-    } else {
-      dispatch(addTask(data));
-    }
-    toggleModal();
-    resetForm();
-    console.log('DATA', data)
-  };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        const isCheckbox = e.target.type === 'checkbox';
+        setData((prev) => ({ ...prev, [name]: isCheckbox ? e.target.checked : value }));
+    };
 
-  const resetForm = () => {
-    setData(initialValues);
-    setIsEditMode(false);
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (isEditMode) {
+            dispatch(editTask(data));
+        } else {
+            dispatch(addTask(data));
+        }
+        toggleModal();
+        resetForm();
+    };
 
-  const handleDelete = (id) => {
-    dispatch(deleteTask(id));
-  };
+    const resetForm = () => {
+        setData(initialValues);
+        setIsEditMode(false);
+    };
 
-  const handleEdit = (task) => {
-    setData(task);
-    setIsEditMode(true);
-    setIsOpen(true);
-  };
+    const handleDelete = (id) => {
+        dispatch(deleteTask(id));
+    };
 
-  useEffect(() => {
-    const storedTasks = localStorage.getItem('taskList');
-    if (storedTasks) {
-      dispatch(setTasksFromStorage(JSON.parse(storedTasks)));
-    }
-  }, [dispatch]);
+    const handleEdit = (task) => {
+        setData(task);
+        setIsEditMode(true);
+        setIsOpen(true);
+    };
 
-  useEffect(() => {
-    if (list.length > 0) {
-      localStorage.setItem('taskList', JSON.stringify(list));
-    }
-  }, [list]);
+    useEffect(() => {
+        const storedTasks = localStorage.getItem('taskList');
+        if (storedTasks) {
+            dispatch(setTasksFromStorage(JSON.parse(storedTasks)));
+        }
+    }, [dispatch]);
 
+    useEffect(() => {
+        if (list.length > 0) {
+            localStorage.setItem('taskList', JSON.stringify(list));
+        }
+    }, [list]);
 
-  return (
-    <>
-      <div className='container pr-8'>
-        <div className='flex text-center justify-center items-center'>
-          <div className='w-1/2 text-left'>
-            <div className='font-bold text-2xl inline-flex'>
-              Hello <img src='hello.gif' className='w-10' alt='hello' /> Dear
+    const filteredList = list.filter((task) =>
+        task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        task.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (task.status ? 'Completed' : 'Incomplete' ).toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+    return (
+        <>
+            <div className="container pr-8">
+                <div className="flex text-center justify-center items-center">
+                    <div className="w-1/2 text-left">
+                        <div className="font-bold text-2xl inline-flex">
+                            Hello <img src="hello.gif" className="w-10" alt="hello" /> Dear
+                        </div>
+                    </div>
+                    <div className="w-1/2 text-right mr-8">
+                        <button className="button1" onClick={toggleModal}>+ Add New Task</button>
+                    </div>
+                </div>
+                <div>
+                    <div className="font-[sans-serif] overflow-x-auto">
+                        <table className="min-w-full mt-6 bg-white table-auto">
+                            <thead className="bg-gray-800 whitespace-nowrap">
+                                <tr className="text-center">
+                                    <th className="p-4 text-sm font-medium text-white">Title</th>
+                                    <th className="p-4 text-sm font-medium text-white">Category</th>
+                                    <th className="p-4 text-sm font-medium text-white">Date</th>
+                                    <th className="p-4 text-sm font-medium text-white">Description</th>
+                                    <th className="p-4 text-sm font-medium text-white">Status</th>
+                                    <th className="p-4 text-sm font-medium text-white">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className="whitespace-nowrap">
+                                {filteredList.map((task) => (
+                                    <tr key={task.id} className="even:bg-blue-50 text-center">
+                                        <td className="p-4 text-sm text-black">{task.title}</td>
+                                        <td className="p-4 text-sm text-black">{task.category}</td>
+                                        <td className="p-4 text-sm text-black">{task.date}</td>
+                                        <td className="p-4 text-sm text-black">{task.description}</td>
+                                        <td className="p-4 text-sm text-black">{task.status ? 'Completed ✅' : 'Incomplete ❌'}</td>
+                                        <td className="p-4">
+                                            <button
+                                                className="dlt_icon2 mr-3 hover:text-green-400"
+                                                onClick={() => handleEdit(task)}
+                                            >
+                                                <RxUpdate />
+                                            </button>
+                                            <button
+                                                className="dlt_icon3 hover:text-red-600"
+                                                onClick={() => handleDelete(task.id)}
+                                            >
+                                                <MdDelete />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div className='w-1/2 text-right mr-8'>
-            <button className='button1' onClick={toggleModal}>+ Add New Task</button>
-          </div>
-        </div>
-        <div>
-          <div className="font-[sans-serif] overflow-x-auto">
-            <table className="min-w-full mt-6 bg-white table-auto ">
-              <thead className="bg-gray-800 whitespace-nowrap">
-                <tr className='text-center'>
-                  <th className="p-4  text-sm font-medium text-white">Title</th>
-                  <th className="p-4  text-sm font-medium text-white">Category</th>
-                  <th className="p-4  text-sm font-medium text-white">Date</th>
-                  <th className="p-4  text-sm font-medium text-white">Description</th>
-                  <th className="p-4  text-sm font-medium text-white">Status</th>
-                  <th className="p-4  text-sm font-medium text-white">Actions</th>
-                </tr>
-              </thead>  
 
-              <tbody className="whitespace-nowrap">
-                {list.map((task) => (
-                  <tr key={task.id} className="even:bg-blue-50 text-center">
-                    <td className="p-4 text-sm text-black">{task.title}</td>
-                    <td className="p-4 text-sm text-black">{task.category}</td>
-                    <td className="p-4 text-sm text-black">{task.date}</td>
-                    <td className="p-4 text-sm text-black">{task.description}</td>
-                    <td className="p-4 text-sm text-black">{task.status ? 'Completed ✅' : 'Incomplete ❌'}</td>
-                    <td className="p-4">
-                      {/* <button className="dlt_icon mr-3 hover:text-red-400"><FaEye /></button> */}
-                      <button className="dlt_icon2 mr-3 hover:text-green-400" onClick={() => handleEdit(task)}><RxUpdate /></button>
-                      <button className="dlt_icon3 hover:text-red-600" onClick={() => handleDelete(task.id)}><MdDelete /></button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-       {/* Modal */}
-  <div>
+            {/* Modal */}
+       <div>
       {isOpen && (
         <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-screen bg-black bg-opacity-50">
           <div className="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow dark:bg-gray-700">
@@ -183,6 +195,6 @@ export default function Main() {
       </div>
     )}
       </div>
-    </>
-  );
+        </>
+    );
 }

@@ -13,7 +13,7 @@ function App() {
   return (
   <>
 <Provider store={store}>
-<div><Header/></div>
+<div><Header setSearchQuery={setSearchQuery}/></div>
 <div className='flex mt-6'>
   <div className="w-1/4"><SideBar setSearchQuery={setSearchQuery}/></div>
   <div className="w-3/4"><Main searchQuery={searchQuery}/></div>
