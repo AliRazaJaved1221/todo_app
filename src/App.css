@@ -74,10 +74,12 @@
   background-color: #ed1c1c;
 }
 
-.dlt_icon{
+.dlt_icon3{
   color: red;
   border: none;
   font-size:larger;
+  margin-left: 0.5rem;
+
 }
 .dlt_icon2{
   color: green;
@@ -85,9 +87,8 @@
   font-size:larger;
   margin-left: 0.5rem;
 }
-.dlt_icon3{
+.dlt_icon{
   color: blue;
   border: none;
   font-size:larger;
-  margin-left: 0.5rem;
 }

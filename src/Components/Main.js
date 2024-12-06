@@ -2,22 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addTask, deleteTask, editTask, setTasksFromStorage } from '../redux/slices/taskSlice';
 import { RxUpdate } from "react-icons/rx";
-import { FaEye } from "react-icons/fa";
+// import { FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
 export default function Main() {
   const dispatch = useDispatch();
   const list = useSelector((state) => state.tasks.list);
-
   const initialValues = { id: 0, title: '', date: '', category: '', description: '', status: false  };
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState(initialValues);
   const [isEditMode, setIsEditMode] = useState(false);
   const toggleModal = () => setIsOpen(!isOpen);
-
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    const isCheckbox = e.target.type === 'checkbox'; // Check if the input is a checkbox
+    const isCheckbox = e.target.type === 'checkbox';
     setData((prev) => ({ ...prev, [name]: isCheckbox ? e.target.checked : value, }));
   };
 
@@ -49,7 +48,6 @@ export default function Main() {
     setIsOpen(true);
   };
 
-  // Load from localStorage on initial render
   useEffect(() => {
     const storedTasks = localStorage.getItem('taskList');
     if (storedTasks) {
@@ -57,7 +55,6 @@ export default function Main() {
     }
   }, [dispatch]);
 
-  // Save to localStorage whenever list changes
   useEffect(() => {
     if (list.length > 0) {
       localStorage.setItem('taskList', JSON.stringify(list));
@@ -80,30 +77,30 @@ export default function Main() {
         </div>
         <div>
           <div className="font-[sans-serif] overflow-x-auto">
-            <table className="min-w-full mt-6 bg-white table-auto">
+            <table className="min-w-full mt-6 bg-white table-auto ">
               <thead className="bg-gray-800 whitespace-nowrap">
-                <tr>
-                  <th className="p-4 text-left text-sm font-medium text-white">Title</th>
-                  <th className="p-4 text-left text-sm font-medium text-white">Category</th>
-                  <th className="p-4 text-left text-sm font-medium text-white">Date</th>
-                  <th className="p-4 text-left text-sm font-medium text-white">Description</th>
-                  <th className="p-4 text-left text-sm font-medium text-white">Status</th>
-                  <th className="p-4 text-left text-sm font-medium text-white">Actions</th>
+                <tr className='text-center'>
+                  <th className="p-4  text-sm font-medium text-white">Title</th>
+                  <th className="p-4  text-sm font-medium text-white">Category</th>
+                  <th className="p-4  text-sm font-medium text-white">Date</th>
+                  <th className="p-4  text-sm font-medium text-white">Description</th>
+                  <th className="p-4  text-sm font-medium text-white">Status</th>
+                  <th className="p-4  text-sm font-medium text-white">Actions</th>
                 </tr>
-              </thead>
+              </thead>  
 
               <tbody className="whitespace-nowrap">
                 {list.map((task) => (
-                  <tr key={task.id} className="even:bg-blue-50">
+                  <tr key={task.id} className="even:bg-blue-50 text-center">
                     <td className="p-4 text-sm text-black">{task.title}</td>
                     <td className="p-4 text-sm text-black">{task.category}</td>
                     <td className="p-4 text-sm text-black">{task.date}</td>
                     <td className="p-4 text-sm text-black">{task.description}</td>
-                    <td className="p-4 text-sm text-black">{task.status ? 'Completed' : 'Incomplete'}</td>
+                    <td className="p-4 text-sm text-black">{task.status ? 'Completed ✅' : 'Incomplete ❌'}</td>
                     <td className="p-4">
-                      <button className="dlt_icon mr-3 hover:text-red-400"><FaEye /></button>
-                      <button className="dlt_icon2 mr-3 hover:text-red-400" onClick={() => handleEdit(task)}><RxUpdate /></button>
-                      <button className="dlt_icon3 hover:text-blue-600" onClick={() => handleDelete(task.id)}><MdDelete /></button>
+                      {/* <button className="dlt_icon mr-3 hover:text-red-400"><FaEye /></button> */}
+                      <button className="dlt_icon2 mr-3 hover:text-green-400" onClick={() => handleEdit(task)}><RxUpdate /></button>
+                      <button className="dlt_icon3 hover:text-red-600" onClick={() => handleDelete(task.id)}><MdDelete /></button>
                     </td>
                   </tr>
                 ))}
@@ -178,8 +175,7 @@ export default function Main() {
             </div>
             <button
               type="submit"
-              className="w-full btn1 text-white py-2 rounded-lg"
-            >
+              className="w-full btn1 text-white py-2 rounded-lg">
                 {isEditMode ? 'Update Task' : 'Add Task'}
                 </button>
           </form>

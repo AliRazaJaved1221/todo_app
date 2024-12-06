@@ -8,9 +8,8 @@ export default function Header() {
     const [currentDate, setCurrentDate] = useState('');
     const [showCalendar, setShowCalendar] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    
 
-  useEffect(() => {
+    useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
