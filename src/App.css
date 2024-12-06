@@ -92,3 +92,13 @@
   border: none;
   font-size:larger;
 }
+.button2{
+  background-color: #f04a4a;
+  color: white;
+  font-weight: 400;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+.button2:hover{
+  background-color: #ed1c1c;
+}
