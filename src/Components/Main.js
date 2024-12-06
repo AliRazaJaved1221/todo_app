@@ -79,16 +79,17 @@ const printt = () => {
     </div>
 </div>
 <div>
-<div className="font-[sans-serif] overflow-x-auto">
+<div className="font-[sans-serif]">
+  <div className='overflow-x-auto'>
   <table className="min-w-full mt-6 bg-white table-auto">
     <thead className="bg-gray-800 whitespace-nowrap">
-      <tr className="text-center">
-        <th className="p-4 text-sm font-medium text-white">Title</th>
-        <th className="p-4 text-sm font-medium text-white">Category</th>
-        <th className="p-4 text-sm font-medium text-white">Date</th>
-        <th className="p-4 text-sm font-medium text-white">Description</th>
-        <th className="p-4 text-sm font-medium text-white">Status</th>
-        <th className="p-4 text-sm font-medium text-white">Actions</th>
+      <tr className="text-center text-white">
+        <th className="p-4 text-sm font-medium">Title</th>
+        <th className="p-4 text-sm font-medium">Category</th>
+        <th className="p-4 text-sm font-medium">Date</th>
+        <th className="p-4 text-sm font-medium">Description</th>
+        <th className="p-4 text-sm font-medium">Status</th>
+        <th className="p-4 text-sm font-medium">Actions</th>
       </tr>
     </thead>
     <tbody className="whitespace-nowrap">
@@ -107,6 +108,7 @@ const printt = () => {
     ))}
     </tbody>
   </table>
+  </div>
 </div>
 <div className='mt-5 flex justify-center'>
 <button type="button" onClick={printt} className="button2">Print Todo Tasks</button>
