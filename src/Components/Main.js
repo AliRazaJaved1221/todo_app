@@ -83,23 +83,23 @@ const printt = () => {
   <div className='overflow-x-auto'>
   <table className="min-w-full mt-6 bg-white table-auto">
     <thead className="bg-gray-800 whitespace-nowrap">
-      <tr className="text-center text-white">
-        <th className="p-4 text-sm font-medium">Title</th>
-        <th className="p-4 text-sm font-medium">Category</th>
-        <th className="p-4 text-sm font-medium">Date</th>
-        <th className="p-4 text-sm font-medium">Description</th>
-        <th className="p-4 text-sm font-medium">Status</th>
-        <th className="p-4 text-sm font-medium">Actions</th>
+      <tr className="text-center text-white font-medium p-4 text-sm">
+        <th className='p-4'>Title</th>
+        <th className='p-4'>Category</th>
+        <th className='p-4'>Date</th>
+        <th className='p-4'>Description</th>
+        <th className='p-4'>Status</th>
+        <th className='p-4'>Actions</th>
       </tr>
     </thead>
     <tbody className="whitespace-nowrap">
       {filteredList.map((task) => (
-      <tr key={task.id} className="even:bg-blue-50 text-center">
-        <td className="p-4 text-sm text-black">{task.title}</td>
-        <td className="p-4 text-sm text-black">{task.category}</td>
-        <td className="p-4 text-sm text-black">{task.date}</td>
-        <td className="p-4 text-sm text-black">{task.description}</td>
-        <td className="p-4 text-sm text-black">{task.status ? 'Completed ✅' : 'Incomplete ❌'}</td>
+      <tr key={task.id} className="even:bg-blue-50 text-center  text-sm text-black">
+        <td className="p-4">{task.title}</td>
+        <td className="p-4">{task.category}</td>
+        <td className="p-4">{task.date}</td>
+        <td className="p-4">{task.description}</td>
+        <td className="p-4">{task.status ? 'Completed ✅' : 'Incomplete ❌'}</td>
         <td className="p-4">
         <button className="dlt_icon2 mr-3 hover:text-green-400" onClick={() => handleEdit(task)}><RxUpdate /></button>
         <button className="dlt_icon3 hover:text-red-600" onClick={() => handleDelete(task.id)}><MdDelete /></button>
