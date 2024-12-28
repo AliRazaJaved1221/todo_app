@@ -4,6 +4,7 @@ const initialState = {
   list: [], // Task list
 };
 
+
 const taskSlice = createSlice({
   name: 'task',
   initialState,
