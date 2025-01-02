@@ -149,7 +149,7 @@ const printt = () => {
           <option value="" disabled>Select category</option>
           <option value="Walk">Walk</option>
           <option value="Games">Games</option>
-          <option value="Office Work">Office Work</option>
+          <option value="Office Work">Office Task</option>
           <option value="House Work">House Work</option>
           <option value="Other">Other</option>
           </select>
