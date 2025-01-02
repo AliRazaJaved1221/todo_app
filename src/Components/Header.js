@@ -59,6 +59,7 @@ export default function Header({ setSearchQuery }) {
                         <div className="w-2/3">
                             <div className="text-md font-bold text-white">{currentDate}</div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
