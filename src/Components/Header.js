@@ -33,6 +33,7 @@ export default function Header({ setSearchQuery }) {
         <div>
             <div className="flex lg:flex-row items-center h-24 w-full bg-gray-500 bsb sm:flex-col sm:h-auto">
                 <div className="w-1/4 lg:flex lg:w-1/4 p-4 sm:flex-none sm:w-full">
+                
                     <img src='logo2.png' alt='logo' className='w-72 sm:w-28' />
                 </div>
                 <div className="w-1/2 sm:flex-none sm:w-full">
